@@ -10,3 +10,29 @@ services:
       - POSTGRES_PASSWORD=${DB_PASS}
       - POSTGRES_USER=${DB_USER}
     restart: 'unless-stopped'
+
+ pgadmin:
+    container_name: sahachart-pgadmin
+    image: dpage/pgadmin4:latest
+    ports:
+      - 8080:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PG_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PG_PASS}
+    restart: unless-stopped
+    
+ strapi:
+    container_name: sahachart-strapi
+    image: naskio/strapi:latest
+    ports:
+      - 1337:1337
+    environment:
+      - DATABASE_CLIENT=${DB_CLIENT}
+      - DATABASE_HOST=${DB_HOST}
+      - DATABASE_PORT=${DB_PORT}
+      - DATABASE_NAME=${DB_NAME}
+      - DATABASE_USERNAME=${DB_USERNAME}
+      - DATABASE_PASSWORD=${DB_PASSWORD}
+      - DATABASE_SSL=${DB_SSL}
+    restart: unless-stopped
+   
